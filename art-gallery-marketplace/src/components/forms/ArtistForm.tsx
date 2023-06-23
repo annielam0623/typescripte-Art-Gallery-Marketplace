@@ -1,9 +1,10 @@
-import Input from '../ui-kit/Input'
-import TextArea from '../ui-kit/TextArea'
-import useFormHandler from '../custom-hooks/useFormHandler'
+import Input from '../ui-kit/Input.tsx'
+import TextArea from '../ui-kit/TextArea.tsx'
+import useFormHandler from '../custom-hooks/useFormHandler.tsx'
 import '../css/new-artist-form.css'
+import React from 'react'
 
-export default function ArtistForm(props) {
+export default function ArtistForm(props: { legend: any; onSubmit: any; formInputs: any }) {
   const { legend, onSubmit, formInputs } = props
 
   const { inputs, handleChange } = useFormHandler(formInputs)
