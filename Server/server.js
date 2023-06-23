@@ -1,49 +1,43 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 //modules and globals
-require('dotenv').config()
-const express = require('express')
-const cors = require('cors')
-const app = express()
-const mongoose = require('mongoose')
-
+require('dotenv').config();
+var cors = require('cors');
+var express = require('express');
+var mongoose_1 = require("mongoose");
+var app = express();
+var PORT = process.env.PORT;
+var MONGO_URI = process.env.MONGO_URI || '';
 //configuration and middleware
 app.use(cors({
-    origin: '*', 
+    origin: '*',
     credentials: true,
-    optionSuccessStatus: 200,
-}))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false}))
-const PORT = process.env.PORT
-const MONGO_URI = process.env.MONGO_URI
-mongoose.set({strictQuery: true})
+}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+mongoose_1.default.set({ strictQuery: true });
 try {
-    mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
-    console.log('DATABASE CONNECTED')
-} catch (err) {
-    console.log(err)
+    mongoose_1.default.connect(MONGO_URI);
+    console.log('DATABASE CONNECTED');
 }
-
+catch (err) {
+    console.log(err);
+}
 //controllers and routes
-const artistsController = require('./Controllers/artists_controller')
-app.use('/artists', artistsController)
-
-const artworksController = require('./Controllers/artworks_controller')
-app.use('/artworks', artworksController)
-
-const commissionsController = require('./Controllers/commissions_controller')
-app.use('/commissions', commissionsController)
-
-app.get('/', (req, res) => {
-    res.status(200).json({ message: 'Welcome to the Art-Mart API!' })
-})
-
-app.get('*', (req, res) => {
-    res.status(404).json({ message: 'endpoint data not found' })
-})
-
+var artists_controller_1 = require("./Controllers/artists_controller");
+app.use('/artists', artists_controller_1.default);
+var artworks_controller_1 = require("./Controllers/artworks_controller");
+app.use('/artworks', artworks_controller_1.default);
+var commissions_controller_1 = require("./Controllers/commissions_controller");
+app.use('/commissions', commissions_controller_1.default);
+app.get('/', function (req, res) {
+    res.status(200).json({ message: 'Welcome to the Art-Mart API!' });
+});
+app.get('*', function (req, res) {
+    res.status(404).json({ message: 'endpoint data not found' });
+});
 //listening for connections
-app.listen(PORT, () => {
-    console.log(`🎸 Rockin' on port: ${PORT}`)
-})
-
-module.exports = app
+app.listen(PORT, function () {
+    console.log("\uD83C\uDFB8 Rockin' on port: ".concat(PORT));
+});
+module.exports = app;

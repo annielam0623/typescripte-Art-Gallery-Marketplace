@@ -1,26 +1,25 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose 
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var mongoose_1 = require("mongoose");
+var Schema = mongoose_1.default.Schema;
 // schema
-const commissionSchema = new Schema({
-  name: { type: String, required: true },
-  artist: {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'Artwork'
-  },
-  description: { type: String, required: true },
-  title: String,
-  price: Number,
-  due_date: Date,
-})
-
+var commissionSchema = new Schema({
+    name: { type: String, required: true },
+    artist: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'Artwork'
+    },
+    description: { type: String, required: true },
+    title: String,
+    price: Number,
+    due_date: Date,
+});
 // helper methods 
-commissionSchema.methods.getCommissiondBy = function() {
-    return `Your estimate income is ${this.commission.est_earn}!  since ${this.artist?.startDate()}`
-}
-  
-
+commissionSchema.methods.getCommissiondBy = function () {
+    var _a;
+    return "Your estimate income is ".concat(this.commission.est_earn, "!  since ").concat((_a = this.artist) === null || _a === void 0 ? void 0 : _a.startDate());
+};
 // model and export 
-const Commission = mongoose.model('Commission', commissionSchema)
-module.exports = Commission
+var Commission = mongoose_1.default.model('Commission', commissionSchema);
+exports.default = Commission;
